@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Bookstore</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+</head>
+<body>
+	<h1>Hello, welcome to bookstore where you can browse books freely and add more</h1>
+	<table class="table table-striped table-dark">
+	<thead>
+	<tr>
+	<th scope ="col">Title</th>
+	<th scope ="col">Author</th>
+	<th scope ="col">Publication year</th>
+	<th scope ="col">insb</th>
+	<th scope ="col">Price</th>
+	</tr>
+	<tbody>
+		<tr th:each = "book : ${books}">
+		<td th:text="${book.title}">
+		<td th:text="${book.author}">
+		<td th:text="${book.publicationYear}">
+		<td th:text="${book.insb}">
+		<td th:text="${book.price}+€">
+		<td class="btn btn-danger" style="width: 150px;height: 50px; margin-bottom: 2%;" > <a th:href="@{/delete/{id}(id=${book.id})}">Delete book</a></td>
+	</tbody>
+	</table>
+	<button onclick="location.href='http://localhost:8080/add'" class="btn btn-success" style="width: 150px;height: 50px" >Add book</button>
+    </body>
+</html>

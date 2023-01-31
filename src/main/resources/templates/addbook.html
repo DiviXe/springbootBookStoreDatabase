@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add your book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+</head>
+<body>
+<h1>Add a book</h1>
+<div class=container> 
+<div class="col-md-4">
+<form th:object="${book}" th:action="@{save}" action="#" method="post">
+
+	<label for="title"> Title</label>
+	<input type="text" id="title" th:field="*{title}" class="form-control"/>
+	<div style="clear: both; display: block; height: 15px;"></div>
+	
+	<label for="author"> Author</label>
+	<input type="text" id="author" th:field="*{author}" class="form-control"/>
+	<div style="clear: both; display: block; height: 15px;"></div>
+	
+	<label for="pyear"> Publication year</label>
+	<input type="text" id="pyear" th:field="*{publicationYear}" class="form-control"/>
+	<div style="clear: both; display: block; height: 15px;"></div>
+	
+	<label for="insb"> insb</label>
+	<input type="text" id="insb" th:field="*{insb}" class="form-control"/>
+	<div style="clear: both; display: block; height: 15px;"></div>
+	
+	<label for="price"> Price</label>
+	<input type="text" id="price" th:field="*{price}" class="form-control"/>
+	<div style="clear: both; display: block; height: 15px;"></div>
+	<input type="submit" class="btn btn-primary" value="Save">
+
+</form>
+</div>
+</div>
+	
+    </body>
+</html>
