@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Add your book</title>
+    <title>Edit your book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
 </head>
 <body>
-<h1>Add a book</h1>
+<h1>Edit book</h1>
 <div class=container> 
 <div class="col-md-4">
-<form th:object="${book}" th:action="@{save}" action="#" method="post">
-
+<form th:object="${book}" th:action="@{../save}" action="#" method="post">
+	<input type="hidden" id="id" th:field="*{id}" />
 	<label for="title"> Title</label>
 	<input type="text" id="title" th:field="*{title}" class="form-control"/>
 	<div style="clear: both; display: block; height: 15px;"></div>

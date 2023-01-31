@@ -16,6 +16,7 @@
 	<th scope ="col">Publication year</th>
 	<th scope ="col">insb</th>
 	<th scope ="col">Price</th>
+	<th scope ="col">Category</th>
 	</tr>
 	<tbody>
 		<tr th:each = "book : ${books}">
@@ -24,9 +25,13 @@
 		<td th:text="${book.publicationYear}">
 		<td th:text="${book.insb}">
 		<td th:text="${book.price}+€">
+		<td th:text="${book.category.name}">
+		<td class="btn btn-success" style="width: 150px;height: 50px;" > <a th:href="@{/edit/{id}(id=${book.id})}">Edit book</a></td>
 		<td class="btn btn-danger" style="width: 150px;height: 50px; margin-bottom: 2%;" > <a th:href="@{/delete/{id}(id=${book.id})}">Delete book</a></td>
 	</tbody>
 	</table>
 	<button onclick="location.href='http://localhost:8080/add'" class="btn btn-success" style="width: 150px;height: 50px" >Add book</button>
+	
+	
     </body>
 </html>

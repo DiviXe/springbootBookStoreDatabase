@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import books.com.Bookstore.domain.Book;
 import books.com.Bookstore.domain.BookRepository;
+import books.com.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
@@ -16,17 +17,22 @@ public class BookController {
 	//BookRepository includes all the CRUD methods
 	@Autowired
 	private BookRepository repository;
+	
+	@Autowired
+	private CategoryRepository crepository;
 
 	@RequestMapping("/booklist")
 	public String BookList(Model model) {
 		model.addAttribute("books", repository.findAll());
+		
 		return "booklist";
-		//ALWAYS RETURN NAME OF TEMPLATE
+		//ALWAYS RETURN NAME OF THYMELEAF TEMPLATE
 	}
 	//adding book
 	@RequestMapping (value="/add")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", crepository.findAll());
 		return "addbook";
 	}
 	//save the book
@@ -41,5 +47,13 @@ public class BookController {
 		repository.deleteById(bookId);
 		return "redirect:../booklist";
 	}
+	
+	// Edit function
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable("id") Long bookId, Model model) {
+    	model.addAttribute("book", repository.findById(bookId));
+    	model.addAttribute("categories", crepository.findAll());
+    	return "editbook";
+    }   
 
 }
