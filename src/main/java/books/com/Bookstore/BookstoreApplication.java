@@ -1,5 +1,7 @@
 package books.com.Bookstore;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +14,7 @@ import books.com.Bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
-
+	private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
@@ -22,6 +24,7 @@ public class BookstoreApplication {
 	public CommandLineRunner  demoData(BookRepository repository, CategoryRepository crepository) {
 		return (args) -> {
 			//adding categories
+			log.info("saving books");
 			crepository.save(new Category("Horror"));
 			crepository.save(new Category("Thriller"));
 			crepository.save(new Category("Action"));
@@ -33,7 +36,10 @@ public class BookstoreApplication {
 			repository.save(new Book("The Shiny", "Matti meikäläinen", 2002, 200522, 30, crepository.findByName("Action").get(0)));
 			repository.save(new Book("The Project", "Matti meikäläinen", 2010, 206655, 35,crepository.findByName("History").get(0)) );
 			
-			
+			log.info("fetch all books for console");
+			for (Book book : repository.findAll() ) {
+				log.info(book.toString());
+			}
 	};
 	
 	}
