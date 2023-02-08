@@ -24,7 +24,7 @@ public class BookstoreApplication {
 	public CommandLineRunner  demoData(BookRepository repository, CategoryRepository crepository) {
 		return (args) -> {
 			//adding categories
-			log.info("saving books");
+			log.info("saving categories");
 			crepository.save(new Category("Horror"));
 			crepository.save(new Category("Thriller"));
 			crepository.save(new Category("Action"));
@@ -32,6 +32,7 @@ public class BookstoreApplication {
 			crepository.save(new Category("History"));
 			crepository.save(new Category("Art"));
 			
+			log.info("saving books");
 			repository.save(new Book("The Chilling", "Matti meikäläinen", 1997, 105522, 25, crepository.findByName("Horror").get(0)));
 			repository.save(new Book("The Shiny", "Matti meikäläinen", 2002, 200522, 30, crepository.findByName("Action").get(0)));
 			repository.save(new Book("The Project", "Matti meikäläinen", 2010, 206655, 35,crepository.findByName("History").get(0)) );

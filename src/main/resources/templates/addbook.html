@@ -13,7 +13,11 @@
 <form th:object="${book}" th:action="@{save}" action="#" method="post">
 
 	<label for="title"> Title</label>
+	
 	<input type="text" id="title" th:field="*{title}" class="form-control"/>
+	
+	<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</div>
+	
 	<div style="clear: both; display: block; height: 15px;"></div>
 	
 	<label for="author"> Author</label>
@@ -21,7 +25,7 @@
 	<div style="clear: both; display: block; height: 15px;"></div>
 	
 	<label for="pyear"> Publication year</label>
-	<input type="text" id="pyear" th:field="*{publicationYear}" class="form-control"/>
+	<input type="text" min="500" id="pyear" th:field="*{publicationYear}" class="form-control"/>
 	<div style="clear: both; display: block; height: 15px;"></div>
 	
 	<label for="insb"> insb</label>
@@ -29,7 +33,7 @@
 	<div style="clear: both; display: block; height: 15px;"></div>
 	
 	<label for="price"> Price</label>
-	<input type="text" id="price" th:field="*{price}" class="form-control"/>
+	<input type="number" min="1" th:field="*{price}" class="form-control"/> 
 	<div style="clear: both; display: block; height: 15px;"></div>
 	
 	<label for="category"> Category</label>
