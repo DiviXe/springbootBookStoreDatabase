@@ -56,6 +56,7 @@ public class BookController {
 	}
 	
 	//save the book included with validation error 
+	//@Valid not working after dependency changes
 	@PostMapping("/save")
 	public String save(@Valid Book book, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {

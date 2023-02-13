@@ -16,7 +16,7 @@ public class Book {
 	private long id;
 	
 	 @NotEmpty(message = "Title cannot be empty")
-	 @Size(min = 3, max = 150)
+	@Size(min = 3, max = 150)
 	private String title;
 	private String author;
 	private Integer publicationYear;
