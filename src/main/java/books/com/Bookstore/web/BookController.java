@@ -61,6 +61,7 @@ public class BookController {
 	public String save(@Valid Book book, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			System.out.println("Error");
+			return "addbook";
 		}
 		repository.save(book);
 		return "redirect:booklist";
