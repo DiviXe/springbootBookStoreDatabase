@@ -1,36 +1,36 @@
-package books.com.Bookstore.web;
+package books.com.Bookstore.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.stereotype.Service;
 
-import books.com.Bookstore.domain.User;
-import books.com.Bookstore.domain.UserRepository;
+import books.com.Bookstore.domain.ApplicationUser;
+import books.com.Bookstore.domain.ApplicationUserRepository;
 
 
 @Service
 public class UserDetailServiceImpl  implements UserDetailsService{
 
 	private static final Logger log = LoggerFactory.getLogger(UserDetailServiceImpl.class);
-	private final UserRepository repository;
+	private final ApplicationUserRepository repository;
 	
 	@Autowired
-	public UserDetailServiceImpl(UserRepository userRepository) {
-	this.repository = userRepository;
+	public UserDetailServiceImpl(ApplicationUserRepository applicationUserRepository) {
+		this.repository = applicationUserRepository;
 	}
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	log.info("loadUserByUsername: " + username);
 	
 	//loadUserbyUsername must be defined in ApplicationUserRepository interface
-	User curruser = repository.findByUsername(username);
+	ApplicationUser curruser = repository.findByUsername(username);
 	
+	//returning null is user is not found 
 	UserBuilder builder = null;
 	if (curruser == null) {
     	throw new UsernameNotFoundException("User not found.");

@@ -8,7 +8,8 @@
 <body>
 	<div class="container">
 		<h1>Sign-up</h1>
-		<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
+		
+		<form th:object="${newuser}" th:action="@{/admin/saveuser}" action="#" method="post">
 			<input type="text" th:field="*{username}" class="form-control"
 				placeholder="Username" />
 			<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>

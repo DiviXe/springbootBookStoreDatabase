@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Players list</title>
+    <title>Book </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
 </head>
 <body>
 <h1>Welcome to Booklist database</h1>
-	<h2>Hello,</h2>
-	<h2>[[${#httpServletRequest.remoteUser}]]</h2>
+	<h2>Hello</h2>
 	
 	<div class="col-md-4" style="padding:20px 0">
 		<form th:action="@{/logout}" method="post">
@@ -26,7 +26,6 @@
 	<th scope ="col">insb</th>
 	<th scope ="col">Price</th>
 	<th scope ="col">Category</th>
-	<th sec:authorize="hasRole('ADMIN')"> </th>
 	</tr>
 	<tbody>
 		<tr th:each = "book : ${books}">
@@ -36,13 +35,11 @@
 		<td th:text="${book.insb}">
 		<td th:text="${book.price}+€">
 		<td th:text="${book.category.name}">
-		<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger" style="width: 150px;height: 50px;">Delete</a></td>
-		<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-xs btn-danger" style="width: 150px;height: 50px;">Edit a book</a></td>
-		<td class="btn btn-success" style="width: 150px;height: 50px;" > <a th:href="@{/edit/{id}(id=${book.id})}">Edit book</a></td>
-		<td class="btn btn-danger" style="width: 150px;height: 50px; margin-bottom: 2%;" > <a th:href="@{/delete/{id}(id=${book.id})}">Delete book</a></td>
+		<td><a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger" style="width: 150px;height: 50px;">Delete</a></td>
+		<td> <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-xs btn-danger" style="width: 150px;height: 50px;">Edit a book</a></td>
 	</tbody>
 	</table>
-	<button onclick="location.href='http://localhost:8080/add'" class="btn btn-success" style="width: 150px;height: 50px" >Add book</button>
+	<button sec:authorize="hasAuthority('ROLE_ADMIN')" onclick="location.href='http://localhost:8080/add'" class="btn btn-success" style="width: 150px;height: 50px" >Add book</button>
 	
 	
     </body>
