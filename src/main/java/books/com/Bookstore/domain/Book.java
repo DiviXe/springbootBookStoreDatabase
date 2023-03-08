@@ -32,7 +32,7 @@ public class Book {
 	// DATABASE TESTING
 	public Book() {}
 	
-	public Book(String title, String author, Integer publicationYear, long insb, Integer price, Category category) {
+	public Book(@NotEmpty(message = "Book's title cannot be empty") @Size(min = 3, max = 250)String title, String author, Integer publicationYear, long insb, Integer price, Category category) {
 		super();
 		this.title = title;
 		this.author = author;

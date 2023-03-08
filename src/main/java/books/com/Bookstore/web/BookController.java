@@ -5,14 +5,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import books.com.Bookstore.domain.ApplicationUserRepository;
 import books.com.Bookstore.domain.Book;
 import books.com.Bookstore.domain.BookRepository;
 import books.com.Bookstore.domain.CategoryRepository;
@@ -29,11 +32,19 @@ public class BookController {
 	@Autowired
 	private CategoryRepository crepository;
 	
+	
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	} 
+	
+	//INDEX page get's the first name of the user (not working properly) 
 	@GetMapping(value= {"/", "index"})
-	public String showMainPage() {
+	public String showMainPage(@AuthenticationPrincipal ApplicationUserRepository userRepository, Model model) {
 	log.info("open main page");
 	return "index";
 	}
+	
 	//ALWAYS RETURN NAME OF THYMELEAF TEMPLATE
 	//show all books
 	@RequestMapping("/booklist")
@@ -43,7 +54,6 @@ public class BookController {
 	}
 	
 	//adding book
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@RequestMapping (value="/add")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
@@ -52,11 +62,11 @@ public class BookController {
 	}
 	
 	//save the book included with validation error 
-	//@Valid not working after dependency changes
 	@PostMapping("/save")
-	public String save(@Valid Book book, BindingResult bindingResult, Model model) {
+	public String save(@Valid @ModelAttribute ("book") Book book, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			System.out.println("Error");
+			System.out.println("Validation error has happened, please recheck.");
+			model.addAttribute("categories", crepository.findAll());
 			return "addbook";
 		}
 		repository.save(book);

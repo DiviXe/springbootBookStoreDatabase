@@ -25,11 +25,13 @@ public class WebSecurityConfig  {
         new AntPathRequestMatcher("/api/**"),
         new AntPathRequestMatcher("/h2-console/**"),
         new AntPathRequestMatcher("/booklist/**")
+        
 };
 
+	//admin URLS, eli voidaan määritellä urlei, jotka ovat vain adminille näkyviä. 
 	private static final AntPathRequestMatcher[] ADMIN_LIST_URLS = {
         new AntPathRequestMatcher("/admin/**"),
-        new AntPathRequestMatcher("/owner/**")
+        new AntPathRequestMatcher("/registeration/**")
 };
 
 	@Bean
@@ -43,7 +45,8 @@ public class WebSecurityConfig  {
 		.and()
 		.headers().frameOptions().disable()			
 		.and()
-		.formLogin().defaultSuccessUrl("/index", true)
+		// .loginPage("/login") ei toiminnassa
+		.formLogin() .defaultSuccessUrl("/index", true)
 		.and()
 		.logout().permitAll();
 		

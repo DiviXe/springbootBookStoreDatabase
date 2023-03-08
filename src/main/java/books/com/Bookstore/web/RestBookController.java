@@ -28,14 +28,14 @@ public class RestBookController {
 	@Autowired
 	BookRepository brepository;
 	
-	//list of books is returned
+	//list of books is returned rest
 	@GetMapping("/books")
 	public Iterable<Book> getBooks() { 
 		log.info("//fetch and returning all books");
 		return brepository.findAll();
 	}
 	
-	// add new book
+	// add new book rest
 		@PostMapping("books")
 		Book newBook(@RequestBody Book newBook) {
 			log.info("save new car " + newBook);

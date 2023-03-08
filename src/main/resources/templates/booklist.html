@@ -9,13 +9,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </head>
 <body>
 <h1>Welcome to Booklist database</h1>
-	<h2>Hello</h2>
-	
-	<div class="col-md-4" style="padding:20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
-		</form>
-	</div>
+	<h2>Hello, <b sec:authentication="name"> </b> </h2>
 	
 	<table class="table table-striped table-dark">
 	<thead>
@@ -39,7 +33,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 		<td> <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-xs btn-danger" style="width: 150px;height: 50px;">Edit a book</a></td>
 	</tbody>
 	</table>
-	<button sec:authorize="hasAuthority('ROLE_ADMIN')" onclick="location.href='http://localhost:8080/add'" class="btn btn-success" style="width: 150px;height: 50px" >Add book</button>
+	<button onclick="location.href='http://localhost:8080/add'" class="btn btn-success" style="width: 150px;height: 50px" >Add book</button>
+	
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
 	
 	
     </body>
