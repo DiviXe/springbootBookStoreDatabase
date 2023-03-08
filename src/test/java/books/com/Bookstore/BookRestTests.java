@@ -1,8 +1,8 @@
 package books.com.Bookstore;
 
 //import static org.hamcrest.Matchers.containsString;
-//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import org.springframework.http.MediaType;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,6 +35,15 @@ public class BookRestTests {
 	public void statusOk() throws Exception {
 		mockMvc.perform(get("/books")).andExpect(status().isOk());
 	}
+	
+	//same kun status ok, mutta katsoo JSON muodon.
+	@Test
+	public void responseTypeApplicationJson() throws Exception {
+		mockMvc.perform(get("/books"))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+	}
+	
 	
 	@Test
 	public void apiStatusOk() throws Exception {
